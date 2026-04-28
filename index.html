@@ -3,76 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Log</title>
+    <title>Workout Log - System Active</title>
     
-    <!-- Libraries to make React and Charts work in the browser -->
+    <!-- Core React Libraries -->
     <script src="https://unpkg.com"></script>
     <script src="https://unpkg.com"></script>
+    
+    <!-- Professional Chart Library (Recharts) -->
     <script src="https://unpkg.com"></script>
-    <script src="https://unpkg.com"></script>
+    
+    <!-- Babel Translator (Must load LAST in head) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        /* Your Design Tokens and CSS */
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+        @import url('https://googleapis.com');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --lime: #C8FF00; --cyan: #00F5FF; --orange: #FF6B35; }
-        body { background: #05020f; color: #fff; font-family: 'Syne', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-
+        body { background: #05020f; color: #fff; font-family: 'Syne', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        
+        /* 3D Visual Box */
         .card-3d {
           background: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
-          backdrop-filter: blur(24px) saturate(1.4);
+          backdrop-filter: blur(20px);
           border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 20px;
-          padding: 40px;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+          border-radius: 24px;
+          padding: 60px;
           text-align: center;
-          max-width: 500px;
-          margin: 100px auto;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+          border-bottom: 2px solid #C8FF00;
         }
-
-        .btn-primary {
-          background: linear-gradient(135deg, #C8FF00, #8ab000);
-          color: #000; border: none; border-radius: 12px;
-          padding: 12px 24px; font-weight: 800; cursor: pointer;
-          margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;
+        .btn-start {
+          background: #C8FF00; color: #000; border: none; padding: 15px 30px; 
+          border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 30px;
+          letter-spacing: 2px; text-transform: uppercase;
         }
     </style>
 </head>
 <body>
+    <!-- This is the 'Landing Pad' where your app will appear -->
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } = window.Recharts;
+        // Grab the components from the browser's memory
+        const { useState } = React;
+        const { LineChart, Line, ResponsiveContainer } = window.Recharts;
 
-        const T = {
-          lime: "#C8FF00",
-          bg: "#05020f",
-          text: "#ffffff",
-        };
-
-        function App() {
+        // Your App Logic
+        function WorkoutApp() {
             return (
                 <div className="card-3d">
-                    <h1 style={{ color: T.lime, fontSize: '2.5rem', marginBottom: '10px' }}>WORKOUT LOG</h1>
-                    <p style={{ opacity: 0.6, marginBottom: '30px' }}>SYSTEM ONLINE // READY TO TRAIN</p>
+                    <h1 style={{ color: '#C8FF00', fontSize: '3.5rem', marginBottom: '10px' }}>WORKOUT LOG</h1>
+                    <p style={{ opacity: 0.5, letterSpacing: '4px', fontSize: '0.8rem' }}>BIOMETRICS CONNECTED // READY</p>
                     
-                    <div style={{ height: '200px', width: '100%', marginBottom: '20px' }}>
-                        {/* Simple placeholder chart to prove Recharts is working */}
+                    <div style={{ height: '150px', width: '300px', margin: '30px auto' }}>
                         <ResponsiveContainer>
-                            <LineChart data={[{d:1, v:10}, {d:2, v:25}, {d:3, v:15}, {d:4, v:40}]}>
-                                <Line type="monotone" dataKey="v" stroke={T.lime} strokeWidth={3} dot={false} />
+                            <LineChart data={[{x:0,y:10}, {x:1,y:25}, {x:2,y:15}, {x:3,y:35}]}>
+                                <Line type="monotone" dataKey="y" stroke="#C8FF00" strokeWidth={4} dot={false} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
 
-                    <button className="btn-primary">Start New Session</button>
+                    <button className="btn-start">Initiate Training</button>
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // The "Launch" Command
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<WorkoutApp />);
     </script>
 </body>
 </html>
